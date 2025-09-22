@@ -1,85 +1,98 @@
-Zomato Sales Performance Analysis Dashboard
-📖 Project Overview
-This project isn't just a collection of charts; it's a strategic tool designed to answer one critical question: How can we turn millions of Zomato orders into clear, simple, and profitable business decisions?
+# Metro Data Analysis Dashboard
 
-The primary objective is to empower everyone—from a regional manager in Delhi to a C-level executive—to understand sales performance without needing to be a data expert. This dashboard cuts through the noise of raw data, revealing key trends, identifying top-performing areas, and uncovering hidden opportunities at a glance.
+A Power BI (.pbix) report analyzing metro / public transport data to uncover insights, trends, and recommendations. This repository holds the full report and related artifacts so you and others can explore what was done, how, and why.
 
-🚀 Live Dashboard & PBIX File
-The best way to understand this dashboard is to use it. You can download the fully interactive Power BI file (.pbix) from the link below.
+---
 
-➡️ Download the PBIX File: Zomato Dashboard PBIX on Google Drive
+## 🔗 View the Report
 
-(Note: You will need to install the free Microsoft Power BI Desktop application to open and interact with the file.)
+You can download / view the .pbix file here:  
+[Metro Data Analysis Report (.pbix)](https://drive.google.com/file/d/14ZGJis02KCXBy4D-b60hd8SdrKw5Yup7/view?usp=sharing)
 
-🖼️ Dashboard Preview
-✨ Key Features & Functionality (Explained for Everyone)
-This dashboard was built with a focus on intuitive design and powerful, interactive features. Here’s a breakdown of what each feature does and, more importantly, why it matters.
+---
 
-1. High-Level KPI Cards
-What it is: The three large numbers at the top: Total Sales Amount, Total Quantity of items sold, and Total Order Count.
+## Table of Contents
 
-Why it matters: This is the 5-second health check of the business. Without looking at anything else, a manager can instantly know the overall performance, answering the most basic question: "How are we doing?"
+1. [Project Overview](#project-overview)  
+2. [What I Did](#what-i-did)  
+3. [Data Sources & Tools](#data-sources--tools)  
+4. [Key Findings & Insights](#key-findings--insights)  
+5. [How It Works](#how-it-works)  
+6. [Usage](#usage)  
+7. [Future Improvements](#future-improvements)  
+8. [License](#license)  
 
-2. Dynamic Metric Toggling (Amount vs. Quantity)
-What it is: Two simple buttons that switch the entire dashboard's focus between the total money earned (Amount) and the total number of items sold (Quantity).
+---
 
-Why it matters: A business might be selling a huge number of cheap items (high quantity) but not making much money (low amount). This toggle lets us see both sides of the story. It helps us understand if our revenue is driven by high-volume sales or by high-value items.
+## Project Overview
 
-3. Geospatial Filtering & Analysis
-What it is: A search bar to filter by city and a chart showing the top localities.
+This project provides an interactive dashboard that analyzes metro transportation data. My goal was to explore trends, identify bottlenecks, understand passenger behavior, and provide actionable insights to improve operations, efficiency, and user satisfaction.
 
-Why it matters: Zomato is a city-based business. A manager for Delhi doesn't need to see data from Mumbai. This feature allows them to zoom in on their specific area of responsibility, making the data relevant and actionable for them.
+Key motivations:
 
-4. Dynamic "Top N" Slicers
-What it is: Buttons that instantly filter the localities chart to show only the Top 5, 10, 20, 50, or 100 performing areas.
+- To understand peak usage times, station-level traffic, delays, and patterns.  
+- To provide visualizations that are intuitive for both technical and non-technical stakeholders.  
+- To enable data-driven decisions for scenario planning (e.g. staffing, schedule adjustments).
 
-Why it matters: Imagine a list of over 200 neighborhoods. Finding the most important ones is like finding a needle in a haystack. These slicers allow a manager to instantly identify their star performers (the Top 5) or find the areas that need the most attention, without any manual sorting.
+---
 
-5. Trend Analysis Visuals (By Month & Year)
-What it is: Line charts showing sales performance over months and years.
+## What I Did
 
-Why it matters: This is like a time machine for sales data. The "Sale by Month" chart helps us spot patterns, like a consistent sales dip in August. This isn't a problem; it's a predictable insight. The marketing team can now proactively launch a promotion in July to boost August's numbers.
+In this report:
 
-🛠️ The "Magic" Behind the Dashboard (Technical Deep-Dive)
-The dashboard's interactivity is powered by Data Analysis Expressions (DAX) in Power BI. While the user experience is simple, the underlying logic is robust. Here are a few key formulas that make it work.
+- Cleaned and prepared raw data for analysis (including handling missing values, formatting, aggregation).  
+- Built multiple visualizations in Power BI to show:  
+  - Station-wise passenger counts over time  
+  - Peak vs off-peak usage  
+  - Delay / waiting time distributions  
+  - Ridership trends (daily / weekly / monthly)  
+  - Comparisons between lines (if applicable)  
+- Implemented filters and drill-down features (e.g. by date, station, metro line) so users can interact with the data.  
+- Designed the dashboard layout for clarity — title / legends / tooltips / color coding to make patterns obvious.  
+- Exported and tracked the `.pbix` file in this Git repo (with Git LFS for large file support) so the full report is versioned.
 
-1. Base Measure for Total Sales
-This is the foundational building block. It simply adds up all the values in the 'Amount' column. Every other sales-related calculation is built on this.
+---
 
-Total Sales = 
-SUM('Sales'[Amount])
+## Data Sources & Tools
 
-2. Dynamic "Top N" Ranking Measure
-This formula acts like a judge in a competition. It looks at all the localities and assigns each one a rank (from #1 downwards) based on their total sales. This is crucial for the "Top N" slicers to work.
+| Category | Details |
+|----------|---------|
+| **Data Sources** | *Describe the data you used: for example, CSV logs of metro swipe-ins, delay logs, schedule data, station metadata, etc.* |
+| **Tools** | Power BI Desktop (report authoring), Git & Git LFS (version control for large PBIX file), any data cleaning tools (Excel, Python, etc.) if used. |
+| **Technologies / Skills** | Data cleaning / ETL, Data visualization, Statistical summarization, Dashboard design, Git version control. |
 
-Locality Rank = 
-RANKX(
-    ALLSELECTED('Locations'[Locality]),
-    [Total Sales],
-    ,
-    DESC,
-    Dense
-)
+---
 
-3. Measure to Filter Visuals based on "Top N" Selection
-This is the "bouncer" for the localities chart. It checks the rank of each locality from the formula above. Then, it looks at which "Top N" button the user has clicked (e.g., "Top 10"). If the locality's rank is within that range (10 or less), it lets it into the chart. Otherwise, it's hidden.
+## Key Findings & Insights
 
-Is In Top N = 
-VAR SelectedTopN = SELECTEDVALUE('Top N Slicer'[Value], 100) // Default to 100
-RETURN
-IF(
-    [Locality Rank] <= SelectedTopN,
-    1,
-    0
-)
+Here are some of the most important insights revealed by the analysis:
 
-(This measure is then used in the chart's filter pane, set to only show values where the result is 1.)
+- **Peak passenger load times:** *E.g., morning rush (7-9 AM) and evening peak (5-7 PM)*  
+- **Stations with consistently high traffic:** *E.g., Station A, Station B show very high usage throughout the day*  
+- **Delay / waiting time patterns:** *E.g., average delays higher during monsoon months, or during major events*  
+- **Ridership trends over time:** *Monthly ridership increasing / decreasing, weekdays vs weekends differences.*  
+- **Line comparisons:** *If one line is under-utilized or overcrowded compared to others.*  
 
-🚀 How to Use This File
-Download: Click the Google Drive link to download the Zomato Dashboard.pbix file.
+These findings can help decision makers plan resource allocation, optimize schedules, improve passenger experience, etc.
 
-Install Power BI: Download and install the free Power BI Desktop application.
+---
 
-Open: Open the .pbix file you downloaded.
+## How It Works
 
-Interact & Explore: Click on anything! Use the slicers, search for a city, and see how the entire dashboard responds in real-time.
+Here’s a brief on how the dashboard works under the hood:
+
+1. **Data Ingestion:** Raw data files are loaded into Power BI.  
+2. **Data Preparation / Transformation:** Cleaning steps such as: removing nulls, standardizing date/time formats, aggregating data by station / line / date.  
+3. **Modeling:** Creating relationships if multiple tables; creating measures (e.g. total passengers, average delay).  
+4. **Visualization:** Multiple visuals (bar charts, line charts, heat maps, etc.), filters / slicers so users can interact.  
+5. **Version Control:** The `.pbix` file is large, so I used Git Large File Storage (LFS) to properly version it without bloating the repo.
+
+---
+
+## Usage
+
+To use this repository / report:
+
+- Clone the repository:  
+  ```bash
+  git clone git@github.com:krishnahanda484/ZomatoDasboard.git
