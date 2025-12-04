@@ -1,13 +1,13 @@
-# Metro Data Analysis Dashboard
+# Zomato Data Analysis Dashboard
 
-A Power BI (.pbix) report analyzing metro / public transport data to uncover insights, trends, and recommendations. This repository holds the full report and related artifacts so you and others can explore what was done, how, and why.
+A Power BI (.pbix) report analyzing Zomato data to uncover insights, trends, and recommendations. This repository holds the full report and related artifacts so you and others can explore what was done, how, and why.
 
 ---
 
 ## 🔗 View the Report
 
 You can download / view the .pbix file here:  
-[Metro Data Analysis Report (.pbix)](https://drive.google.com/file/d/14ZGJis02KCXBy4D-b60hd8SdrKw5Yup7/view?usp=sharing)
+[Zomato Analysis Report (.pbix)](https://drive.google.com/file/d/14ZGJis02KCXBy4D-b60hd8SdrKw5Yup7/view?usp=sharing)
 
 ---
 
@@ -26,7 +26,7 @@ You can download / view the .pbix file here:
 
 ## Project Overview
 
-This project provides an interactive dashboard that analyzes metro transportation data. My goal was to explore trends, identify bottlenecks, understand passenger behavior, and provide actionable insights to improve operations, efficiency, and user satisfaction.
+This project provides an interactive dashboard that analyzes Zomato data. My goal was to explore trends, identify bottlenecks, understand passenger behavior, and provide actionable insights to improve operations, efficiency, and user satisfaction.
 
 Key motivations:
 
